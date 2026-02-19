@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Genre extends Model
 {
-    public function films()
+    public function libraryItems()
     {
-        return $this->belongsToMany(Film::class);
+        return $this->belongsToMany(LibraryItem::class, 'genre_library_item');
     }
 }
