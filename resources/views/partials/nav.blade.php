@@ -1,37 +1,45 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+    <div class="container"><a class="navbar-brand fw-bold" href="{{ route('home') }}">CineHouse</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ route('library.index') }}">Libreria</a></li>
+                @auth <li class="nav-item"><a class="nav-link" href="{{ route('library.create') }}">Contribuisci</a>
+                </li> @endauth
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+
+
+            </ul>
+            <div class="d-flex gap-2">
+                @guest
+                    <a class="btn btn-outline-dark btn-sm" href="{{ route('login') }}">Login</a>
+                    <a class="btn btn-dark btn-sm" href="{{ route('register') }}">Register</a>
+                @endguest
+
+                @auth
+                    <div class="dropdown">
+                        <button class="btn btn-dark btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                            Ciao, {{ auth()->user()->name }}
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profilo</a></li>
+                            <li><a class="dropdown-item" href="#">Preferiti</a></li>
+                            <li><a class="dropdown-item" href="#">Abbonamento</a></li>
+                            <li><a class="dropdown-item" href="#">Libreria</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">@csrf
+                                    <button class="dropdown-item">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                @endauth
+
+            </div>
+        </div>
     </div>
 </nav>
